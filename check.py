@@ -1,6 +1,6 @@
 import re
-from chi2kol import Interval
-import chi2kol
+from criterias.chi2kol import Interval
+
 class DataCheck():
     def __init__(self) -> None:
         pass

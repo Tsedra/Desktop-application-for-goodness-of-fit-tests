@@ -3,19 +3,18 @@ from PyQt5.QtWidgets import QMainWindow, QToolTip, QAction, QWidget, \
     QPushButton, QGridLayout, QSpinBox, QDoubleSpinBox, QTableView, QHBoxLayout, QApplication, QLabel
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QFont, QIcon, QPixmap, QStandardItemModel, QStandardItem
-from chi2kol import  TableForX2, PlotChi2
+from criterias.chi2kol import  TableForX2, PlotChi2
 from check import DataCheck
-from kolmogorov import Kolm, PlotKolm
-from perm import Permutation, PlotPerm
-from ttstud import Ttest, PlotTtest
-from ander import Anderson, PlotAnderson
-from but_criterions import Сriterion, Submits
+from criterias.kolmogorov import Kolm, PlotKolm
+from criterias.perm import Permutation, PlotPerm
+from criterias.ttstud import Ttest, PlotTtest
+from criterias.ander import Anderson, PlotAnderson
+from helpers.but_criterions import Сriterion, Submits
 
 class MainWindow(QMainWindow):
     def __init__(self):
     
         QMainWindow.__init__(self)
-        
         
         menuBar = self.menuBar()
         helpMenu = menuBar.addMenu("&О программе")
@@ -28,7 +27,7 @@ class MainWindow(QMainWindow):
 
         self.pl = None
         self.labels_end = None
-        self.setWindowIcon(QIcon('icon.png'))
+        self.setWindowIcon(QIcon('pictures/icon.png'))
         
         self.setMinimumSize(QSize(1080, 520))         
         self.setWindowTitle("Критерии Согласия")   
@@ -52,7 +51,7 @@ class MainWindow(QMainWindow):
 
 
         lab = QLabel()
-        lab.setPixmap(QPixmap("done.png"))
+        lab.setPixmap(QPixmap("pictures/done.png"))
 
         self.widget_right = QWidget()
         self.widget_left = QWidget()
@@ -143,9 +142,7 @@ class MainWindow(QMainWindow):
         self.model = QStandardItemModel(2, 0)
         self.table.horizontalHeader().setVisible(False)
 
-
         self.dSpinBox.valueChanged.connect(self.editing_handler)
-        
 
         self.but_chi2.clicked.connect(self.click_chi2)
         self.but_kolm.clicked.connect(self.click_kolm)
@@ -159,16 +156,13 @@ class MainWindow(QMainWindow):
         self.old_value = {"chi2": 0, "kolm": 0, "perm": 0, "ttest": 0, "ander": 0}
         self.old_alpha = {"chi2": 0, "kolm": 0, "perm": 0, "ttest": 0, "ander": 0}
 
-        
         self.clear.setDisabled(True)
         self.widget_right.hide()
         
         self.saved_model = 0
         self.size = 0
-
         
     def upload_model(self):
-        
         self.saved_model = self.model 
 
     def download_model(self):
@@ -275,7 +269,7 @@ class MainWindow(QMainWindow):
             self.ui_criter()
         
         self.labels_end = QHBoxLayout()
-        self.H0orH1(chi2.chi_2, chi2.X2_table, self.labels_end, "chi2.png")
+        self.H0orH1(chi2.chi_2, chi2.X2_table, self.labels_end, "pictures/chi2.png")
         self.grid_right.addLayout(self.labels_end, 3, 0, 1, 3)
         self.pl = PlotChi2(chi2)
         
@@ -448,7 +442,7 @@ class MainWindow(QMainWindow):
             self.all_criteria[k].setDisabled(False)
         self.all_criteria[locked].setDisabled(True)
 
-    def H0orH1(self, threshold, critical, layout, path='arrow.png'):
+    def H0orH1(self, threshold, critical, layout, path='pictures/arrow.png'):
         
         
         pict = QLabel()
@@ -460,7 +454,7 @@ class MainWindow(QMainWindow):
             l = QLabel(" < ")
             label_1.setStyleSheet("QLabel{  color: #08b929;}")
             done = QLabel()
-            done.setPixmap(QPixmap("done.png"))
+            done.setPixmap(QPixmap("pictures/done.png"))
         
             H0 = QLabel("Нет оснований отвергнуть проверяемую гипотезу")
             self.wgds = [pict, label_1, l, label_2, done, H0]
@@ -471,7 +465,7 @@ class MainWindow(QMainWindow):
             label_1.setStyleSheet("QLabel{ color: #eb1433;}")
             H1 = QLabel("Отвергаем проверяемую гипотезу")
             close = QLabel()
-            close.setPixmap(QPixmap("close.png"))
+            close.setPixmap(QPixmap("pictures/close.png"))
             
             self.wgds = [pict, label_1, r, label_2, close, H1]
             for w in self.wgds:
@@ -484,8 +478,6 @@ class MainWindow(QMainWindow):
                 a[x][y] = int(self.table.item(x,y).text())
         
         print(a)
-    #def doublespinBox(self):
-        
 
  
 if __name__ == "__main__":

@@ -1,27 +1,18 @@
 import pandas as pd
 import math
-from scipy import integrate
 from scipy.stats import chi2
 import numpy as np
 import scipy.stats as sps
 import matplotlib.pyplot as plt
 import seaborn as sns
-from statsmodels.distributions.empirical_distribution import ECDF
-from statsmodels.sandbox.stats.multicomp import multipletests
-from collections import Counter
-import copy
-from statistics import mean
 import numpy as np
-import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 red = '#FF3300'
 blue = '#0099CC'
 green = '#00CC66'
 
-
 sns.set(style='ticks', font_scale=1.7)
-
 
 class Interval():
     def __init__(self, l, r) -> None:
@@ -105,17 +96,10 @@ class TableForX2():
     def plot(self):
     
         plt.figure(figsize=(6, 5))
-        
-        #grid = np.linspace(chi2.ppf(0.01,df=self.dof), chi2.ppf(0.99,df=self.dof),self.lent)
-
         plt.plot(self.bins_ranges, self.f_obs , lw=2, color=blue, label='Плотность')
 
- 
         plt.bar(self.bins_ranges, self.f_exp, color='green', label='Приближение',bottom=5, edgecolor ="black")
-
-        #plt.xlim (xmin = min(chisq_values), xmax=100)
-        #plt.ylim (ymin = min(chi2.ppf(0.01,df=self.dof)),ymax=max(chi2.ppf(0.01,df=self.dof)))
-        
+     
         plt.title('Точность приближения в критерии хи-квадрат')
         plt.show()
 
@@ -123,35 +107,17 @@ class TableForX2():
 class PlotChi2(FigureCanvas):
     def __init__(self, data,  parent=None):
         
-        #mpl.rcParams.update({'fontsize': 10})
         fig, self.ax = plt.subplots(figsize=(6, 5), dpi=100)
         self.ax.tick_params(axis='both', which='major', labelsize=12)
         super().__init__(fig)
         self.setParent(parent)
-
         """ 
         Matplotlib Script
         """
-        
         self.ax.plot(data.bins_ranges, data.f_obs , lw=2, color=blue, label='Плотность')
-
- 
         self.ax.bar(data.bins_ranges, data.f_exp, color='green', label='Приближение', bottom=5, edgecolor ="black")
-
-        #plt.xlim (xmin = min(chisq_values), xmax=100)
-        #plt.ylim (ymin = min(chi2.ppf(0.01,df=self.dof)),ymax=max(chi2.ppf(0.01,df=self.dof)))
-        
         self.ax.set_title('Точность приближения в критерии хи-квадрат', fontsize=12)
-        #plt.show()
-
-        #t = np.arange(0.0, 2.0, 0.01)
-        #s = 1 + np.sin(2 * np.pi * t)
-        
-        #self.ax.plot(t, s)
-
-        #self.ax.set_title("График", fontsize=16, fontname='Arial')
         self.ax.grid()
-
 
 def integralF(x):
             return (1/math.sqrt(2*math.pi))*(math.exp(-(x**2)/2))

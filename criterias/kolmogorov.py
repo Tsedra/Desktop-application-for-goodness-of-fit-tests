@@ -1,4 +1,3 @@
-import sys
 import pandas as pd
 import numpy as np
 import scipy.stats as sps
@@ -73,7 +72,6 @@ class PlotKolm(FigureCanvas):
         
         self.ax.grid()
 
-
 if __name__=="__main__":
-    a = Kolm([2048,1992])
-    
+   # a = Kolm([2048,1992])
+    pass

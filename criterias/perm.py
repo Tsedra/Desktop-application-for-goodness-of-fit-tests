@@ -24,7 +24,6 @@ class Permutation():
 class PlotPerm(FigureCanvas):
     def __init__(self, data,  parent=None):
         
-        
         fig, self.ax = plt.subplots(figsize=(6, 5), dpi=100)
         self.ax.tick_params(axis='both', which='major', labelsize=12)
         super().__init__(fig)
@@ -42,6 +41,5 @@ class PlotPerm(FigureCanvas):
         self.ax.legend()
         self.ax.grid()
         
- 
 if __name__=="__main__":
     pass

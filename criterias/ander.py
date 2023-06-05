@@ -27,12 +27,8 @@ class Anderson():
         else:
             self.critical_value = criticals[0]
 
-
-
-
 class PlotAnderson(FigureCanvas):
     def __init__(self, data,  parent=None):
-        
         
         fig, self.ax = plt.subplots(figsize=(6, 5), dpi=100)
         self.ax.tick_params(axis='both', which='major', labelsize=12)
@@ -52,10 +48,6 @@ class PlotAnderson(FigureCanvas):
         self.ax.set_xlabel('Значения выборки', fontsize=12)
         self.ax.set_ylabel('Плотность вероятности',fontsize=12)
         self.ax.set_title('Тест на нормальность',fontsize=12)
-
-        # Выводим значение статистики критерия Андерсона-Дарлинга
-        #plt.text(13, 0.18, 'Статистика = {:.3f}'.format(statistic))
-
         self.ax.grid()
  
 if __name__ =="__main__":
